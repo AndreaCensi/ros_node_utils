@@ -3,7 +3,7 @@ import yaml
 from contracts import contract
 
 @contract(returns='dict')
-def _rosbag_info(bag):
+def rosbag_info(bag):
     """ Returns a dictionary with the fields returned by "rosbag info". """
     stdout = subprocess.Popen(['rosbag', 'info', '--yaml', bag],
                               stdout=subprocess.PIPE).communicate()[0]

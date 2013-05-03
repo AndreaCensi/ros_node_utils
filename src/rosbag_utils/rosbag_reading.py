@@ -1,10 +1,10 @@
 from . import logger as main_logger
 from .utils import InAWhile
 from contracts import contract
-from .rosbag_info_stats import _rosbag_info
+from .rosbag_info_stats import rosbag_info
    
 
-def _read_bag_stats_progress(source, logger, interval=5):
+def read_bag_stats_progress(source, logger, interval=5):
     """ This is a wrapper for read_bag_stats that visualizes some statistics. """ 
     tracker = InAWhile(interval)
     
@@ -20,7 +20,7 @@ def _read_bag_stats_progress(source, logger, interval=5):
 
 
 @contract(topics='list(str)')
-def _read_bag_stats(bagfile, topics, logger=None):
+def read_bag_stats(bagfile, topics, logger=None):
     """ 
         This yields a dict with: 
         
@@ -45,7 +45,7 @@ def _read_bag_stats(bagfile, topics, logger=None):
         logger = main_logger
         
     logger.debug('Reading info for bagfile...')
-    bag_info = _rosbag_info(bagfile)
+    bag_info = rosbag_info(bagfile)
     logger.debug('Opening bagfile...')
     bag = rosbag.Bag(bagfile)
 

@@ -1,28 +1,44 @@
 from contracts import contract
 from conf_tools.utils.wildcards import get_wildcard_matches
-from conf_tools.utils.not_found import raise_x_not_found
+from conf_tools.utils import raise_x_not_found
+import warnings
 
 
-@contract(baginfo='dict', topics='list(str)', returns='list(str)')
-def _resolve_topics(baginfo, topics):
+@contract(known='list(str)', topics='list(str)',
+          returns='tuple(list(str),dict(str:str),dict(str:str))')
+def resolve_topics(known, topics, soft=True):
     """
         Given a list of topic names, which could contain "*"
         
+        return res, resolved2asked, asked2resolved
+
     """ 
-    
-    known_topics = [t['topic'] for t in baginfo['topics']]
     
     res = []
     for t in topics:
-        matches = list(get_wildcard_matches(t, known_topics))
+        matches = list(get_wildcard_matches(t, known))
         if not matches:
-            raise_x_not_found('topic', t, known_topics)
+            if soft:
+                warnings.warn('make this better')
+                print('warning, no match for %r' % t)
+                res.append(t)
+                continue
+            else:
+                raise_x_not_found('topic', t, known)
         if len(matches) >= 2:
             msg = 'Too many matches for %s: %s' % (t, matches)
             raise ValueError(msg)
         res.append(matches[0])
-    return res
+    
+    asked2resolved = {}
+    resolved2asked = {}
+    for a, t in zip(topics, res):
+        resolved2asked[t] = a
+        asked2resolved[a] = t 
+        
+    return res, resolved2asked, asked2resolved
     
     
     
-    
+def topics_in_bag(baginfo):
+    return [t['topic'] for t in baginfo['topics']]
