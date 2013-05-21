@@ -1,7 +1,7 @@
 from . import logger as main_logger
+from .rosbag_info_stats import rosbag_info
 from .utils import InAWhile
 from contracts import contract
-from .rosbag_info_stats import rosbag_info
    
 
 def read_bag_stats_progress(source, logger, interval=5):

@@ -9,6 +9,4 @@ __all__ = ['rosbag_info', 'read_bag_stats', 'read_bag_stats_progress', 'resolve_
 
 from .rosbag_info_stats import *
 from .rosbag_reading import *
-from .rosbag_reading import *
-
 from .rosbag_flexible_read import *
