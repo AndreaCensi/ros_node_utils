@@ -1,10 +1,15 @@
 import subprocess
 import yaml
 from contracts import contract
+import os
+import warnings
 
 @contract(returns='dict')
 def rosbag_info(bag):
     """ Returns a dictionary with the fields returned by "rosbag info". """
+    if not os.path.exists(bag):
+        raise ValueError('no file %r' % bag)
+    warnings.warn('Check exit code')
     stdout = subprocess.Popen(['rosbag', 'info', '--yaml', bag],
                               stdout=subprocess.PIPE).communicate()[0]
     info_dict = yaml.load(stdout)

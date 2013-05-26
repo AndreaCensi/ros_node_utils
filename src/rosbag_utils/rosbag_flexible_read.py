@@ -3,6 +3,7 @@ from conf_tools.utils.wildcards import get_wildcard_matches
 from conf_tools.utils import raise_x_not_found
 import warnings
 
+__all__ = ['resolve_topics', 'topics_in_bag']
 
 @contract(known='list(str)', topics='list(str)',
           returns='tuple(list(str),dict(str:str),dict(str:str))')
