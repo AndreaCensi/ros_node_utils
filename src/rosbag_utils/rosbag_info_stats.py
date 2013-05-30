@@ -3,6 +3,10 @@ import yaml
 from contracts import contract
 import os
 import warnings
+from rosbag_utils import logger
+from contracts.utils import indent
+
+__all__ = ['rosbag_info']
 
 @contract(returns='dict')
 def rosbag_info(bag):
@@ -12,7 +16,12 @@ def rosbag_info(bag):
     warnings.warn('Check exit code')
     stdout = subprocess.Popen(['rosbag', 'info', '--yaml', bag],
                               stdout=subprocess.PIPE).communicate()[0]
-    info_dict = yaml.load(stdout)
+    try:
+        info_dict = yaml.load(stdout)
+    except:
+        logger.error('Could not parse yaml:\n%s' % indent(stdout, '| '))
+        raise
+    
     return info_dict
 
 # Example output:
