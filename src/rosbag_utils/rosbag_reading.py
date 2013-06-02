@@ -1,8 +1,9 @@
-from . import logger as main_logger
 from .rosbag_info_stats import rosbag_info
 from .utils import InAWhile
 from contracts import contract
+from rosbag_utils import logger as main_logger
    
+__all__ = ['read_bag_stats', 'read_bag_stats_progress']
 
 def read_bag_stats_progress(source, logger, interval=5):
     """ This is a wrapper for read_bag_stats that visualizes some statistics. """ 

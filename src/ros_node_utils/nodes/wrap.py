@@ -1,6 +1,7 @@
-
 import sys
 import traceback
+
+__all__ = ['wrap_ros_script']
 
 
 def wrap_ros_script(function):

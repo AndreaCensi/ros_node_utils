@@ -1,8 +1,9 @@
 from contracts import contract
 import time
 
+__all__ = ['InAWhile']
 
-class InAWhile:
+class InAWhile(object):
 
     @contract(interval='None|>0')
     def __init__(self, interval=5):
