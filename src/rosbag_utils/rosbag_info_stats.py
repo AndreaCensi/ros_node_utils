@@ -5,6 +5,8 @@ import os
 import warnings
 from rosbag_utils import logger
 from contracts.utils import indent
+warnings.warn('remove dependency on procgraph')
+from procgraph.utils.calling_ext_program import system_cmd_result
 
 __all__ = ['rosbag_info']
 
@@ -13,9 +15,21 @@ def rosbag_info(bag):
     """ Returns a dictionary with the fields returned by "rosbag info". """
     if not os.path.exists(bag):
         raise ValueError('no file %r' % bag)
+    
     warnings.warn('Check exit code')
-    stdout = subprocess.Popen(['rosbag', 'info', '--yaml', bag],
-                              stdout=subprocess.PIPE).communicate()[0]
+    
+    cmd = ['rosbag', 'info', '--yaml', bag]
+    cwd = os.getcwd()
+    print('cmd: %s' % cmd)
+    res = system_cmd_result(cwd, cmd,
+                      display_stdout=False,
+                      display_stderr=False,
+                      raise_on_error=True,
+                      capture_keyboard_interrupt=False)
+    
+    stdout = res.stdout
+#     stdout = subprocess.Popen(
+#                               stdout=subprocess.PIPE).communicate()[0]
     try:
         info_dict = yaml.load(stdout)
     except:

@@ -1,9 +1,9 @@
 import PIL.Image  # @UnresolvedImport
 import numpy
-import roslib  # @UnresolvedImport @UnusedImport
-import rospy  # @UnresolvedImport @UnusedImport
-import sensor_msgs.msg  # @UnresolvedImport
-from sensor_msgs.msg import CompressedImage  # @UnusedImport @UnresolvedImport
+# import roslib  # @UnresolvedImport @UnusedImport
+# import rospy  # @UnresolvedImport @UnusedImport
+# import sensor_msgs.msg  # @UnresolvedImport
+# from sensor_msgs.msg import CompressedImage  # @UnusedImport @UnresolvedImport
 import struct
 import numpy as np
 
@@ -101,7 +101,12 @@ def imgmsg_to_pil(rosimage, encoding_to_mode={
   
 def pil_to_imgmsg(image, encodingmap={'L': 'mono8', 'RGB': 'rgb8', 'RGBA': 'rgba8', 'YCbCr': 'yuv422'},
                         PILmode_channels={'L': 1, 'RGB': 3, 'RGBA': 4, 'YCbCr': 3}):
-    rosimage = sensor_msgs.msg.Image()
+    # import roslib  # @UnresolvedImport @UnusedImport
+# import rospy  # @UnresolvedImport @UnusedImport
+    from sensor_msgs.msg import Image
+# from sensor_msgs.msg import CompressedImage  # @UnusedImport @UnresolvedImport
+
+    rosimage = Image()
     # adam print 'Channels image.mode: ',PILmode_channels[image.mode]
     rosimage.encoding = encodingmap[image.mode]
     (rosimage.width, rosimage.height) = image.size
@@ -110,7 +115,8 @@ def pil_to_imgmsg(image, encodingmap={'L': 'mono8', 'RGB': 'rgb8', 'RGBA': 'rgba
     return rosimage
   
 def numpy_to_imgmsg(image, stamp=None):
-    rosimage = sensor_msgs.msg.Image()
+    from sensor_msgs.msg import Image
+    rosimage = Image()
     rosimage.height = image.shape[0]
     rosimage.width = image.shape[1]
     if image.dtype == numpy.uint8:
