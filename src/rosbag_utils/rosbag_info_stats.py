@@ -1,12 +1,11 @@
-import subprocess
-import yaml
 from contracts import contract
+from contracts.utils import indent
+from rosbag_utils import logger
+from rosbag_utils.utils import system_cmd_result
 import os
 import warnings
-from rosbag_utils import logger
-from contracts.utils import indent
-warnings.warn('remove dependency on procgraph')
-from procgraph.utils.calling_ext_program import system_cmd_result
+import yaml
+
 
 __all__ = ['rosbag_info']
 
@@ -20,7 +19,7 @@ def rosbag_info(bag):
     
     cmd = ['rosbag', 'info', '--yaml', bag]
     cwd = os.getcwd()
-    print('cmd: %s' % cmd)
+    # print('cmd: %s' % cmd)
     res = system_cmd_result(cwd, cmd,
                       display_stdout=False,
                       display_stderr=False,
