@@ -13,10 +13,10 @@ def read(fname):
 long_description = read('README.rst')
     
 
-setup(name='ROSNodeUtils',
+setup(name='ros_node_utils',
       author="Andrea Censi",
       author_email="andrea@cds.caltech.edu",
-      url='PROJECT_URL',
+      url='http://github.com/AndreaCensi/ros_node_utils',
       
       description=description,
       long_description=long_description,

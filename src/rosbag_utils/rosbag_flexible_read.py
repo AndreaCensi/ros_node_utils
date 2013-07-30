@@ -1,6 +1,6 @@
-from contracts import contract
-from conf_tools.utils.wildcards import get_wildcard_matches
 from conf_tools.utils import raise_x_not_found
+from conf_tools.utils.wildcards import get_wildcard_matches
+from contracts import contract
 import warnings
 
 __all__ = ['resolve_topics', 'topics_in_bag']
