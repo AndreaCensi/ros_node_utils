@@ -7,7 +7,8 @@ import warnings
 import yaml
 
 
-__all__ = ['rosbag_info']
+__all__ = ['rosbag_info', 'rosbag_info_cached']
+
 
 @contract(returns='dict')
 def rosbag_info(bag):
@@ -55,3 +56,24 @@ def rosbag_info(bag):
 # topics:
 #     - topic: /arm_1/arm_controller/position_command
 #       type: brics_actuator/JointPositions
+
+@contract(returns='dict')
+def rosbag_info_cached(bag):
+    """ Caches the result in a file <filename>.info.yaml """
+    cache = bag + '.info.yaml'
+    if os.path.exists(cache):
+        logger.debug('Reading from cache: %s' % cache)
+        with open(cache) as f:
+            cached = yaml.load(f)
+            if not isinstance(cached, dict):
+                logger.debug('Invalid cache: %s' % cached)
+                os.unlink(cache)
+                return rosbag_info_cached(bag)
+            return cached
+    else:
+        result = rosbag_info(bag)
+        with open(cache, 'w') as f:
+            yaml.dump(result, f)
+        return result
+    
+    
