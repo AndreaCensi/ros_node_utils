@@ -1,7 +1,7 @@
 from contracts import contract
 from contracts.utils import indent
 from rosbag_utils import logger
-from rosbag_utils.utils import system_cmd_result
+from .utils import system_cmd_result
 import os
 import warnings
 import yaml
@@ -20,7 +20,7 @@ def rosbag_info(bag):
     
     cmd = ['rosbag', 'info', '--yaml', bag]
     cwd = os.getcwd()
-    # print('cmd: %s' % cmd)
+
     res = system_cmd_result(cwd, cmd,
                       display_stdout=False,
                       display_stderr=False,
@@ -28,8 +28,7 @@ def rosbag_info(bag):
                       capture_keyboard_interrupt=False)
     
     stdout = res.stdout
-#     stdout = subprocess.Popen(
-#                               stdout=subprocess.PIPE).communicate()[0]
+
     try:
         info_dict = yaml.load(stdout)
     except:
@@ -57,23 +56,36 @@ def rosbag_info(bag):
 #     - topic: /arm_1/arm_controller/position_command
 #       type: brics_actuator/JointPositions
 
+class Storage:
+    warned_cache = set()
+    cache = {}
+
 @contract(returns='dict')
 def rosbag_info_cached(bag):
     """ Caches the result in a file <filename>.info.yaml """
+    if bag in Storage.cache:
+        return Storage.cache[bag]
+    
     cache = bag + '.info.yaml'
     if os.path.exists(cache):
-        logger.debug('Reading from cache: %s' % cache)
+        if not cache in Storage.warned_cache:
+            # only warn once per file
+            logger.debug('Reading from cache: %s' % cache)
+            Storage.warned_cache.add(cache)
+        
         with open(cache) as f:
             cached = yaml.load(f)
             if not isinstance(cached, dict):
-                logger.debug('Invalid cache: %s' % cached)
+                logger.error('Invalid cache: %s' % cached)
                 os.unlink(cache)
                 return rosbag_info_cached(bag)
+            Storage.cache[bag] = cached
             return cached
     else:
         result = rosbag_info(bag)
         with open(cache, 'w') as f:
             yaml.dump(result, f)
+        Storage.cache[bag] = result
         return result
     
     
