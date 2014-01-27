@@ -14,8 +14,8 @@ def read_bag_stats_progress(source, logger, interval=5):
             progress = extra['t_percentage']
             cur_obs = extra['counter']
             num_obs = '?'  # extra['messages']  # XXX: this is all messages
-            status = ('%4.1f%%  (obs: %4d/%s);  %5.1f fps' % 
-                   (progress, cur_obs, num_obs, tracker.fps()))
+            status = ('%4.1f%% %5.2f sec (obs: %4d/%s);  %5.1f fps' %
+                   (progress, extra['t_from_start'], cur_obs, num_obs, tracker.fps()))
             logger.debug(status)
         yield topic, msg, t, extra
 
@@ -57,8 +57,6 @@ def read_bag_stats(bagfile, topics,
     if stop_time is None:
         stop_time = bag_info['end']
             
-        
-
     extra = bag_info
     extra['messages'] = bag_info['messages']
     extra['start'] = start_time

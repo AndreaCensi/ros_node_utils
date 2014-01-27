@@ -40,6 +40,6 @@ def resolve_topics(known, topics, soft=True):
     return res, resolved2asked, asked2resolved
     
     
-    
+@contract(returns='list(str)')
 def topics_in_bag(baginfo):
     return [t['topic'] for t in baginfo['topics']]
