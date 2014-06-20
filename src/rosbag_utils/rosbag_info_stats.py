@@ -1,10 +1,13 @@
-from contracts import contract
-from contracts.utils import indent
-from rosbag_utils import logger
-from .utils import system_cmd_result
 import os
 import warnings
+
+from contracts import contract
+from contracts.utils import indent
 import yaml
+
+from rosbag_utils import logger
+
+from .utils import system_cmd_result
 
 
 __all__ = ['rosbag_info', 'rosbag_info_cached']

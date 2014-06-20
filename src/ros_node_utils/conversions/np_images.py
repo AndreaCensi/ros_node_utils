@@ -6,6 +6,7 @@ import numpy
 # from sensor_msgs.msg import CompressedImage  # @UnusedImport @UnresolvedImport
 import struct
 import numpy as np
+import warnings
 
 def rgb_from_imgmsg(image):
     im, _, _ = imgmsg_to_pil(image)
@@ -37,6 +38,10 @@ def rgb_from_pil(im):
 
 # Number of channels used by a PIL image mode
 def imgmsg_to_pil(rosimage, encoding_to_mode={
+       # not sure http://answers.ros.org/question/46746/need-help-with-accessing-the-kinect-depth-image-using-opencv/
+        '16UC1': 'L',
+        'bayer_grbg8': 'L',
+
         'mono8':     'L',
         '8UC1':      'L',
         '8UC3':      'RGB',
@@ -50,7 +55,8 @@ def imgmsg_to_pil(rosimage, encoding_to_mode={
         'bayer_bggr': 'L',
         'yuv422':     'YCbCr',
         'yuv411':     'YCbCr'},
-        PILmode_channels={ 'L' : 1, 'RGB' : 3, 'RGBA' : 4, 'YCbCr' : 3 }):
+        PILmode_channels={
+                          'L' : 1, 'RGB' : 3, 'RGBA' : 4, 'YCbCr' : 3 }):
     conversion = 'B'
     channels = 1
     if rosimage.encoding.find('32FC') >= 0:
@@ -91,7 +97,14 @@ def imgmsg_to_pil(rosimage, encoding_to_mode={
             im = PIL.Image.merge('RGB', im.split()[-1::-1])
         return im, data, dimsizes
     else:
+        if not rosimage.encoding in encoding_to_mode:
+            msg = 'Could not find %s in %s' % (rosimage.encoding, list(encoding_to_mode.keys()))
+            raise ValueError(msg)
+        if rosimage.encoding in ['16UC1', 'bayer_grbg8']:
+            warnings.warn('Probably conversion not correct for %s' % rosimage.encoding)
         mode = encoding_to_mode[rosimage.encoding]
+
+
         step_size = PILmode_channels[mode]
         dimsizes = [rosimage.height, rosimage.width, step_size]
         im = PIL.Image.frombuffer(mode, dimsizes[1::-1], rosimage.data, 'raw', mode, 0, 1)
