@@ -19,7 +19,7 @@ def rosbag_info(bag):
     if not os.path.exists(bag):
         raise ValueError('no file %r' % bag)
     
-    warnings.warn('Check exit code')
+    raise Exception('rosbag_info for %r' % bag)
     
     cmd = ['rosbag', 'info', '--yaml', bag]
     cwd = os.getcwd()
@@ -59,7 +59,7 @@ def rosbag_info(bag):
 #     - topic: /arm_1/arm_controller/position_command
 #       type: brics_actuator/JointPositions
 
-class Storage:
+class Storage():
     warned_cache = set()
     cache = {}
 
@@ -75,7 +75,6 @@ def rosbag_info_cached(bag):
             # only warn once per file
             logger.debug('Reading from cache: %s' % cache)
             Storage.warned_cache.add(cache)
-        
         with open(cache) as f:
             cached = yaml.load(f)
             if not isinstance(cached, dict):
@@ -85,6 +84,7 @@ def rosbag_info_cached(bag):
             Storage.cache[bag] = cached
             return cached
     else:
+        print('cache file does not exist: %s' % cache)
         result = rosbag_info(bag)
         with open(cache, 'w') as f:
             yaml.dump(result, f)

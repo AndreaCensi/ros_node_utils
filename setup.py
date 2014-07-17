@@ -15,7 +15,7 @@ long_description = read('README.rst')
 
 setup(name='ros_node_utils',
       author="Andrea Censi",
-      author_email="andrea@cds.caltech.edu",
+      author_email="censi@mit.edu",
       url='http://github.com/AndreaCensi/ros_node_utils',
       
       description=description,

@@ -1,4 +1,4 @@
-from .rosbag_info_stats import rosbag_info
+from .rosbag_info_stats import rosbag_info_cached
 from .utils import InAWhile
 from contracts import contract
 from rosbag_utils import logger as main_logger
@@ -48,7 +48,7 @@ def read_bag_stats(bagfile, topics,
         logger = main_logger
         
     logger.debug('Reading info for bagfile...')
-    bag_info = rosbag_info(bagfile)
+    bag_info = rosbag_info_cached(bagfile)
     logger.debug('Opening bagfile...')
     bag = rosbag.Bag(bagfile)
 
