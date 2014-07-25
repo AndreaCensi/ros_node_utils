@@ -19,7 +19,7 @@ def rosbag_info(bag):
     if not os.path.exists(bag):
         raise ValueError('no file %r' % bag)
     
-    raise Exception('rosbag_info for %r' % bag)
+#     raise Exception('rosbag_info for %r' % bag)
     
     cmd = ['rosbag', 'info', '--yaml', bag]
     cwd = os.getcwd()

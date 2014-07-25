@@ -42,7 +42,7 @@ def read_bag_stats(bagfile, topics,
     """
     from rospy import rostime  # @UnresolvedImport
 
-    import rosbag
+    import rosbag  # @UnresolvedImport
 
     if logger is None:
         logger = main_logger
@@ -68,7 +68,8 @@ def read_bag_stats(bagfile, topics,
     stop_time = rostime.Time.from_sec(stop_time)
     
     i = 0
-    for topic, msg, t in bag.read_messages(topics=topics, start_time=start_time, end_time=stop_time):
+    messages = bag.read_messages(topics=topics, start_time=start_time, end_time=stop_time)
+    for topic, msg, t in messages:
         if i == 0:
             logger.debug('first message arrived.')
         extra['counter'] = i
