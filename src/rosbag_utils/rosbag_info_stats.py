@@ -86,8 +86,14 @@ def rosbag_info_cached(bag):
     else:
         print('cache file does not exist: %s' % cache)
         result = rosbag_info(bag)
-        with open(cache, 'w') as f:
-            yaml.dump(result, f)
+        try:
+            with open(cache, 'w') as f:
+                yaml.dump(result, f)
+        except IOError as e:
+            if e.errno == 30: # read only
+                print('Not writing cache file because read-only: %s' % cache)
+            else:
+                raise 
         Storage.cache[bag] = result
         return result
     
