@@ -19,9 +19,7 @@ def get_version(filename):
 version = get_version(filename='src/ros_node_utils/__init__.py')
 
 
-description = """
-
-"""
+description = ""
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
