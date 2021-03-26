@@ -1,7 +1,8 @@
-__version__ = '2.0.0'
+__version__ = "2.0.0"
 
 import logging
-logging.basicConfig()
+
+# logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
