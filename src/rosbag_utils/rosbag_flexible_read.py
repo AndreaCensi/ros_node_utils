@@ -17,9 +17,9 @@ __all__ = ["resolve_topics", "topics_in_bag"]
 )
 def resolve_topics(known, topics, soft=True):
     """
-        Given a list of topic names, which could contain "*"
+    Given a list of topic names, which could contain "*"
 
-        return res, resolved2asked, asked2resolved
+    return res, resolved2asked, asked2resolved
 
     """
     logger.info(f"known : {known}")
