@@ -1,0 +1,24 @@
+{
+  "install_requires": [],
+  "tests_require": [
+    "nose"
+  ],
+  "srcdir": "src",
+  "package_name": "ros_node_utils",
+  "entry_points": {
+    "console_scripts": []
+  },
+  "zip_safe": true,
+  "include_package_data": true,
+  "modules": [
+    "ros_node_utils",
+    "ros_node_utils.conversions",
+    "ros_node_utils.nodes",
+    "rosbag_utils",
+    "rosbag_utils.utils"
+  ],
+  "version": "2.0.0",
+  "author": "",
+  "author_email": "",
+  "url": ""
+}
