@@ -10,3 +10,8 @@ prune .circleci
 exclude .gitignore
 exclude .bumpversion.cfg
 exclude .pre-commit-config.yaml
+exclude Makefile*
+exclude Dockerfile*
+exclude *.mk
+exclude .travis.yml
+exclude README.md
