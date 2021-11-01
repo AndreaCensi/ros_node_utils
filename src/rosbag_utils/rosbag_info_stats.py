@@ -12,7 +12,7 @@ __all__ = ["rosbag_info", "rosbag_info_cached"]
 
 @contract(returns="dict")
 def rosbag_info(bag):
-    """ Returns a dictionary with the fields returned by "rosbag info". """
+    """Returns a dictionary with the fields returned by "rosbag info"."""
     if not os.path.exists(bag):
         raise ValueError("no file %r" % bag)
 
@@ -67,7 +67,7 @@ class Storage:
 
 @contract(returns="dict")
 def rosbag_info_cached(bag):
-    """ Caches the result in a file <filename>.info.yaml """
+    """Caches the result in a file <filename>.info.yaml"""
     if bag in Storage.cache:
         return Storage.cache[bag]
 
@@ -78,7 +78,7 @@ def rosbag_info_cached(bag):
             logger.debug("Reading from cache: %s" % cache)
             Storage.warned_cache.add(cache)
         with open(cache) as f:
-            cached = yaml.load(f)
+            cached = yaml.load(f, Loader=yaml.Loader)
             if not isinstance(cached, dict):
                 logger.error("Invalid cache: %s" % cached)
                 os.unlink(cache)
