@@ -7,7 +7,7 @@ __all__ = ["read_bag_stats", "read_bag_stats_progress"]
 
 
 def read_bag_stats_progress(source, logger, interval=5):
-    """ This is a wrapper for read_bag_stats that visualizes some statistics. """
+    """This is a wrapper for read_bag_stats that visualizes some statistics."""
     tracker = InAWhile(interval)
 
     for topic, msg, t, extra in source:

@@ -14,11 +14,11 @@ ROSNodeUtils
 
 
 Simple usage example: ::
-  
+
       from ros_node_utils import function
-      
+
       function(1,2,3)
-      
+
 **News**
 
 - 2013-04-11: Version 0.2 released (:ref:`changelog <changelog>`).
@@ -29,8 +29,8 @@ Simple usage example: ::
 
 **Documentation index**
 
-- :ref:`installation` 
-- :ref:`api` 
+- :ref:`installation`
+- :ref:`api`
 - :ref:`api_reference`
 - :ref:`credits`
 
@@ -48,11 +48,11 @@ Installation
 Install |ROSNodeUtils| using: ::
 
     $ pip install ROSNodeUtils
-    
+
 .. raw:: html
    :file: download.html
 
-TYou can download this project in either zip_ or tar_ formats, or 
+TYou can download this project in either zip_ or tar_ formats, or
 download using git: ::
 
     $ git clone git://github.com:AndreaCensi/ros_node_utilsS.git
@@ -68,7 +68,3 @@ Install using: ::
 
 
 .. include:: api.rst.inc
-
-
- 
-

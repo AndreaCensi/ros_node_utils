@@ -12,5 +12,3 @@ Example function
 .. autofunction:: contract
 
 .. autofunction:: decorate
-
-

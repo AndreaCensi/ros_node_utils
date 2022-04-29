@@ -1,5 +1,5 @@
 class ROSNode:
-    """ Some common utilities for ROS nodes. """
+    """Some common utilities for ROS nodes."""
 
     def __init__(self, prefix=None):
         self.prefix = "" if prefix is None else "%s: " % prefix

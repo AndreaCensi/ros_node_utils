@@ -1,5 +1,5 @@
 #! /usr/bin/env python
- 
+
 from optparse import OptionParser
 import os
 import sys
@@ -108,7 +108,7 @@ class DirectoryHandler(object):
         self.renamer = renamer
 
     def path(self):
-        
+
         return os.path.join(self.root, self.name)
 
     def relative_path(self, directory, filename):
@@ -201,10 +201,10 @@ class LayoutFactory(object):
 
         if self.force:
             remove = self.operations_factory.create_remover(self.file_helper.exists, self.dir_helper.rmtree)
-            renamer = self.operations_factory.create_force_rename(renamer, remove) 
+            renamer = self.operations_factory.create_force_rename(renamer, remove)
 
         if self.verbose:
-            renamer = self.operations_factory.create_verbose_rename(renamer, self.output_stream) 
+            renamer = self.operations_factory.create_verbose_rename(renamer, self.output_stream)
 
         # Build list of directories to process
         directories = [d for d in contents if self.is_underscore_dir(path, d)]
@@ -262,10 +262,10 @@ def sphinx_extension(app, exception):
 
     # This code is sadly untestable in its current state
     # It would be helped if there was some function for loading extension
-    # specific data on to the app object and the app object providing 
+    # specific data on to the app object and the app object providing
     # a file-like object for writing to standard out.
     # The former is doable, but not officially supported (as far as I know)
-    # so I wouldn't know where to stash the data. 
+    # so I wouldn't know where to stash the data.
 
     if not app.builder.name in ("html", "dirhtml"):
         return
@@ -293,7 +293,7 @@ def sphinx_extension(app, exception):
             shutil.move,
             os.path.exists
             )
-    
+
     operations_factory = OperationsFactory()
     handler_factory = HandlerFactory()
 
@@ -350,7 +350,7 @@ def main(args):
             shutil.move,
             os.path.exists
             )
-    
+
     operations_factory = OperationsFactory()
     handler_factory = HandlerFactory()
 
@@ -374,11 +374,8 @@ def main(args):
         return
 
     layout.process()
-    
+
 
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-
-
