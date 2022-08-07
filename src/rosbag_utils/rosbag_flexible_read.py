@@ -7,7 +7,10 @@ from contracts import contract
 logger = ZLogger(__name__)
 # from . import logger
 
-__all__ = ["resolve_topics", "topics_in_bag"]
+__all__ = [
+    "resolve_topics",
+    "topics_in_bag",
+]
 
 
 @contract(

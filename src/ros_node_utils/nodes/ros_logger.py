@@ -1,4 +1,6 @@
-__all__ = ["RospyLogger"]
+__all__ = [
+    "RospyLogger",
+]
 
 
 class RospyLogger:

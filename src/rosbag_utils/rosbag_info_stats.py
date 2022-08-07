@@ -7,7 +7,10 @@ from contracts.utils import indent
 from . import logger
 from .utils import system_cmd_result
 
-__all__ = ["rosbag_info", "rosbag_info_cached"]
+__all__ = [
+    "rosbag_info",
+    "rosbag_info_cached",
+]
 
 
 @contract(returns="dict")

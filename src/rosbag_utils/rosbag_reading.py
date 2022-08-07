@@ -3,7 +3,10 @@ from .utils import InAWhile
 from contracts import contract
 from rosbag_utils import logger as main_logger
 
-__all__ = ["read_bag_stats", "read_bag_stats_progress"]
+__all__ = [
+    "read_bag_stats",
+    "read_bag_stats_progress",
+]
 
 
 def read_bag_stats_progress(source, logger, interval=5):

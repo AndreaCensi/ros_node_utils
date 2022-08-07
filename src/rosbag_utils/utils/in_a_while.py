@@ -1,7 +1,9 @@
 from contracts import contract
 import time
 
-__all__ = ["InAWhile"]
+__all__ = [
+    "InAWhile",
+]
 
 
 class InAWhile(object):
